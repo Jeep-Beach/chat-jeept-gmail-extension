@@ -125,7 +125,6 @@ class JeepBeachContentScript {
 
     this.isProcessing = true;
     this.floatingButton.disabled = true;
-    this.floatingButton.textContent = 'Generating...';
 
     try {
       // Get compose box
@@ -134,6 +133,13 @@ class JeepBeachContentScript {
         throw new Error('No compose box found');
       }
 
+      // Check if there's existing text in the compose box
+      const existingText = this.gmailDOM.extractTextContent(composeBox);
+      const isRewriteMode = existingText && existingText.trim().length > 0;
+
+      // Update button text based on mode
+      this.floatingButton.textContent = isRewriteMode ? 'Rewriting...' : 'Generating...';
+
       // Get email context (DOM mode for now)
       const emailContext = this.gmailDOM.getLastInboundMessage();
       if (!emailContext) {
@@ -141,6 +147,7 @@ class JeepBeachContentScript {
       }
 
       console.log('Email context found:', emailContext);
+      console.log('Rewrite mode:', isRewriteMode, 'Existing text:', existingText);
 
       // Get settings
       const settings = await this.getSettings();
@@ -159,6 +166,8 @@ class JeepBeachContentScript {
         chrome.runtime.sendMessage({
           type: 'JB_DRAFT_REQUEST',
           emailContext: emailContext,
+          existingDraft: isRewriteMode ? existingText : null,
+          isRewriteMode: isRewriteMode,
           tone: settings.tone,
           fallbackMessage: settings.fallbackMessage,
           jeepBeachUrls: settings.jeepBeachUrls,
