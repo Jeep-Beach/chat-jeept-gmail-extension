@@ -1,68 +1,144 @@
-# ChatJeePT Chrome Extension
+# ChatJeePT - AI Email Assistant for Gmail
 
-A Chrome extension that helps draft Gmail replies using content from JeepBeach.com. The extension reads the last inbound message, fetches relevant information from JeepBeach.com, and generates a contextual draft reply using an LLM.
+Never type the same email response twice! ChatJeePT helps you quickly draft Gmail replies using information from JeepBeach.com. Just click a button, and get an intelligent draft reply ready to review and send.
 
-## Features
+## What Does It Do?
 
-- **Smart Draft Generation**: Uses LLM to generate contextual replies based on JeepBeach.com content
-- **Two Context Modes**:
-  - Simple DOM mode (default): Reads visible email content from Gmail's DOM
-  - Gmail API mode (optional): Fetches the latest inbound message via Gmail API
-- **Content Caching**: Caches JeepBeach.com content for 4 hours to reduce network calls
-- **Configurable Settings**: Customizable tone, fallback messages, and content sources
-- **Safety Features**: Grounded responses only using provided content, no automatic sending
+ChatJeePT adds a button to your Gmail compose window. When you click it:
+1. It reads the email you're replying to
+2. It finds relevant information from JeepBeach.com
+3. It writes a helpful draft reply for you
+4. You review, edit if needed, and send
 
-## Installation
+**Important:** This extension never sends emails automatically. You always have full control.
 
-### 1. Load the Extension
+## Quick Start Guide
 
-1. Open Chrome and go to `chrome://extensions/`
-2. Enable "Developer mode" in the top right
-3. Click "Load unpacked" and select the `extension` folder
-4. The extension should now appear in your extensions list
+### Step 1: Download the Extension
 
-### 2. Basic Setup
+1. Click the green **"Code"** button
+2. Click **"Download ZIP"**
+3. Find the downloaded file (usually in your Downloads folder)
+4. Double-click to unzip it - you'll see a folder called `chat-jeept-main`
 
-1. Click the extension icon in the toolbar to open settings
-2. Get an OpenAI API key from [platform.openai.com](https://platform.openai.com/api-keys)
-3. Paste your API key in the "OpenAI API Key" field
-4. Click "Save Settings"
-5. Go to Gmail and start composing a reply
-6. Look for the "ChatJeePT" floating button
+### Step 2: Install in Chrome
 
-### 3. Optional Gmail API Setup
+1. Open Google Chrome
+2. Type `chrome://extensions/` in the address bar and press Enter
+3. Look for a switch in the top-right that says **"Developer mode"** - turn it ON
+4. Click the **"Load unpacked"** button (top-left)
+5. Navigate to your Downloads folder → `chat-jeept-main` → `extension`
+6. Click **"Select"** (or **"Open"**)
+7. You should now see "ChatJeePT" in your extensions list!
 
-For more reliable context fetching:
+### Step 3: Get Your OpenAI API Key
 
-1. Go to [Google Cloud Console](https://console.developers.google.com/)
-2. Create a new project or select an existing one
-3. Enable the Gmail API
-4. Create OAuth 2.0 credentials (Web application type)
-5. Add your extension ID to authorized origins
-6. Update the `client_id` in `manifest.json`
-7. Enable "Use Gmail API for context" in the extension settings
+This extension uses OpenAI (the company behind ChatGPT) to generate drafts. You'll need a free account:
 
-## Usage
+1. Go to [platform.openai.com](https://platform.openai.com/api-keys)
+2. Sign up or log in
+3. Click **"Create new secret key"**
+4. Give it a name like "ChatJeePT"
+5. Copy the key (it looks like: `sk-...`)
+6. **Important:** Save this somewhere safe - you can't see it again!
 
-### Generating Drafts
+**Note:** OpenAI charges a small amount per use (typically a few cents per month for light use).
 
-1. Open Gmail and start composing a reply to an email
-2. The "ChatJeePT" button will appear in the bottom-right corner
-3. Click the button to generate a draft reply
-4. The draft will be inserted into your compose box
-5. Review, edit, and send as normal
+### Step 4: Configure the Extension
 
-### Configuration
+1. Click the puzzle piece icon in Chrome's toolbar (top-right)
+2. Find "ChatJeePT" and click it
+3. Paste your OpenAI API key in the first box
+4. Click **"Save Settings"**
+5. That's it!
 
-Access settings by clicking the extension icon in Chrome's toolbar:
+## How to Use
 
-- **API Key**: Your OpenAI API key
-- **Response Tone**: Describes the tone for generated replies
-- **Fallback Message**: Message used when no relevant content is found
-- **Content Sources**: Static Jeep Beach information used for context
-- **Use Gmail API**: Toggle between DOM and API context modes
+1. Go to Gmail and open any email
+2. Click **"Reply"** (or start a new email)
+3. Look for the **"ChatJeePT"** button in the bottom-right corner of the compose window
+4. Click it
+5. Wait a few seconds while it generates your draft
+6. Review the draft, make any changes you want
+7. Click **"Send"** when ready
 
-## File Structure
+**Tip:** If you've already started writing a response, clicking the ChatJeePT button will replace what you've written with a new AI-generated draft. Use it before you start typing, or be ready to lose your draft!
+
+## Settings You Can Change
+
+Click the extension icon to access these options:
+
+- **Response Tone**: How formal or casual your replies should be (default: "friendly and professional")
+- **Fallback Message**: What to say when the extension can't find relevant information
+- **Content Sources**: The JeepBeach.com information used to write replies
+
+## Common Questions
+
+**Q: How much does this cost?**
+A: The extension is free, but OpenAI charges for API usage. Typical cost is $0.01-0.05 per month for casual use.
+
+**Q: Will it send emails without asking me?**
+A: No! It only creates drafts. You always review and click send yourself.
+
+**Q: What if I don't like the draft it created?**
+A: Just edit it like any other email, or delete it and write your own.
+
+**Q: Can I use this with other email services?**
+A: Currently it only works with Gmail (mail.google.com).
+
+**Q: Is my email data safe?**
+A: Your emails are only sent to OpenAI to generate the draft. Nothing is stored permanently. Your API key stays on your computer.
+
+## Troubleshooting
+
+### The ChatJeePT button isn't showing up
+
+1. Make sure you've clicked "Reply" or "Compose" in Gmail
+2. Refresh your Gmail page (press F5 or Cmd+R)
+3. Check that the extension is enabled:
+   - Go to `chrome://extensions/`
+   - Make sure ChatJeePT has the toggle turned ON
+
+### I'm getting an error about my API key
+
+1. Double-check you copied the entire key (starts with `sk-`)
+2. Make sure you have credits in your OpenAI account:
+   - Go to [platform.openai.com/account/billing](https://platform.openai.com/account/billing)
+   - Add a payment method if needed
+3. Try creating a new API key and using that instead
+
+### The draft it created doesn't make sense
+
+- Click "Refresh Content" in the extension settings to update the JeepBeach.com information
+- Make sure the email you're replying to is visible on screen
+- The extension works best when replying to clear questions
+
+### It's taking a long time to generate a draft
+
+- This is normal - it usually takes 3-10 seconds
+- If it takes longer than 30 seconds, refresh Gmail and try again
+
+### I want to uninstall the extension
+
+1. Go to `chrome://extensions/`
+2. Find "ChatJeePT"
+3. Click **"Remove"**
+4. Your API key will be deleted automatically
+
+## Need More Help?
+
+If you're still having issues, you can:
+1. Check the [Issues page on GitHub](https://github.com/yourusername/chat-jeept/issues)
+2. Create a new issue describing your problem
+
+---
+
+## For Developers
+
+<details>
+<summary>Technical Documentation (click to expand)</summary>
+
+### File Structure
 
 ```
 extension/
@@ -73,10 +149,6 @@ extension/
 ├── options.js             # Settings page logic
 ├── styles.css             # Extension styles
 ├── icons/                 # Extension icons
-│   ├── icon16.png
-│   ├── icon32.png
-│   ├── icon48.png
-│   └── icon128.png
 └── utils/                 # Utility modules
     ├── storage.js         # Chrome storage management
     ├── gmailDom.js        # Gmail DOM utilities
@@ -84,99 +156,26 @@ extension/
     └── llm.js             # LLM integration
 ```
 
-## API Requirements
+### API Details
 
-### OpenAI API
-- **Model**: GPT-4o-mini (default)
-- **Max Tokens**: 250
-- **Temperature**: 0.5
-- **Required Scope**: `https://api.openai.com/*`
+**OpenAI API:**
+- Model: GPT-4o-mini
+- Max Tokens: 250
+- Temperature: 0.5
 
-### Gmail API (Optional)
-- **Scope**: `https://www.googleapis.com/auth/gmail.readonly`
-- **Required for**: Gmail API context mode
+### Development Setup
 
-## Safety Features
-
-- **Grounded Responses**: Only uses information from provided JeepBeach.com content
-- **No Auto-Sending**: Only inserts drafts, never sends automatically
-- **Fallback Handling**: Uses fallback message when no relevant content is found
-- **Error Handling**: Graceful degradation with user-friendly error messages
-- **Content Validation**: Truncates content to prevent token limit issues
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Button Not Appearing**
-   - Ensure you're in Gmail's compose/reply mode
-   - Check that the extension is enabled
-   - Refresh the Gmail page
-
-2. **API Key Errors**
-   - Verify your OpenAI API key is correct
-   - Check that you have sufficient API credits
-   - Test the API key using the "Test LLM" button
-
-3. **No Draft Generated**
-   - Use "Refresh Content" to update content
-   - Verify the email context is readable
-
-4. **Gmail API Issues**
-   - Ensure OAuth is properly configured
-   - Check that the Gmail API is enabled
-   - Verify the client ID in manifest.json
-
-### Debug Mode
-
-Enable Chrome's developer tools to see console logs:
-1. Right-click the extension icon → "Inspect popup"
-2. Check the Console tab for error messages
-3. Use the Network tab to debug API calls
-
-## Development
-
-### Prerequisites
-- Chrome browser
-- OpenAI API key
-- Basic knowledge of Chrome extension development
-
-### Local Development
-1. Clone or download the extension files
+1. Clone the repository
 2. Make changes to the code
 3. Go to `chrome://extensions/`
 4. Click the refresh icon on the extension
-5. Test your changes
+5. Test your changes in Gmail
 
-### Testing
-1. Test with various email types
-2. Verify both DOM and API context modes
-3. Check error handling with invalid API keys
-4. Test content caching behavior
+### Privacy & Security
 
-## Limitations
+- API keys stored locally in Chrome's sync storage
+- No email content permanently stored
+- All requests made directly from browser
+- Only sends data to OpenAI for draft generation
 
-- Only works with Gmail (mail.google.com)
-- Requires internet connection for LLM calls
-- Uses static content for context
-- Button only appears when composing/replying
-- Limited to the provided JeepBeach.com content
-
-## Privacy & Security
-
-- API keys are stored locally in Chrome's sync storage
-- No email content is permanently stored
-- All network requests are made directly from your browser
-- No data is sent to third parties except OpenAI
-
-## Support
-
-For issues or questions:
-1. Check the troubleshooting section above
-2. Review the console logs for error messages
-3. Ensure all requirements are met
-4. Test with the provided test functions
-
-## License
-
-This extension is provided as-is for educational and personal use. Please ensure compliance with OpenAI's terms of service and Gmail's API usage policies.
+</details>
