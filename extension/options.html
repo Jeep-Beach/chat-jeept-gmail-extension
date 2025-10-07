@@ -3,109 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatJeePeeTee Settings</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>ChatJeePT Settings</title>
+    <link rel="stylesheet" href="dist/options.css">
 </head>
-<body>
-    <div class="jeepbeach-options">
-        <h1>ChatJeePeeTee Settings</h1>
-        
-        <div class="section">
-            <h2>API Configuration</h2>
-            <div class="form-group">
-                <label for="apiKey">OpenAI API Key</label>
-                <input type="password" id="apiKey" placeholder="sk-...">
-                <div class="help-text">Your OpenAI API key. Get one at <a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com</a></div>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+    <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+        <div class="container mx-auto px-4 py-8 max-w-4xl">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold tracking-tight text-gray-900 mb-2">ChatJeePT Settings</h1>
+                <p class="text-gray-600">Configure your AI-powered email assistant</p>
             </div>
-            
-            <div class="form-group">
-                <label for="provider">LLM Provider</label>
-                <select id="provider">
-                    <option value="openai">OpenAI (GPT-4o-mini)</option>
-                    <option value="anthropic">Anthropic (Claude-3-haiku)</option>
-                </select>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>Response Settings</h2>
-            <div class="form-group">
-                <label for="tone">Response Tone</label>
-                <textarea id="tone" placeholder="friendly, concise, cheerful + helpful"></textarea>
-                <div class="help-text">Describe the tone you want for generated replies</div>
-            </div>
-            
-            <div class="form-group">
-                <label for="fallbackMessage">Fallback Message</label>
-                <textarea id="fallbackMessage" placeholder="Thanks for reaching out! The fastest path is our FAQs: https://jeepbeach.com/faq/&#10;If you still need help, just reply here and we'll jump in."></textarea>
-                <div class="help-text">Message to use when no relevant information is found</div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>JeepBeach Content Sources</h2>
-            <div class="form-group">
-                <label for="jeepBeachUrls">Jeep Beach URLs to Monitor</label>
-                <textarea id="jeepBeachUrls" class="url-list" placeholder="https://jeepbeach.com/&#10;https://jeepbeach.com/faq/&#10;https://jeepbeach.com/events/&#10;https://jeepbeach.com/registration/"></textarea>
-                <div class="help-text">One URL per line. Content will be cached for 4 hours.</div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>Gmail Integration</h2>
-            <div class="form-group">
-                <div class="checkbox-group">
-                    <input type="checkbox" id="useGmailApi">
-                    <label for="useGmailApi">Use Gmail API for context (requires OAuth setup)</label>
+
+            <!-- API Configuration Card -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6 shadow-sm">
+                <div class="flex items-center mb-4">
+                    <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                    <h2 class="text-xl font-semibold text-gray-900">API Configuration</h2>
                 </div>
-                <div class="help-text">When enabled, fetches the latest inbound message via Gmail API instead of reading from DOM. More reliable but requires additional setup.</div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label for="apiKey" class="text-sm font-medium text-gray-700 mb-2 block">OpenAI API Key</label>
+                        <input
+                            type="password"
+                            id="apiKey"
+                            placeholder="sk-..."
+                            class="w-full h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        >
+                        <p class="text-xs text-gray-500 mt-1">Your OpenAI API key. Get one at <a href="https://platform.openai.com/api-keys" target="_blank" class="text-blue-600 hover:underline">platform.openai.com</a></p>
+                    </div>
+
+                    <div>
+                        <label for="provider" class="text-sm font-medium text-gray-700 mb-2 block">LLM Provider</label>
+                        <select
+                            id="provider"
+                            class="w-full h-10 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        >
+                            <option value="openai">OpenAI (GPT-4o-mini)</option>
+                            <option value="anthropic">Anthropic (Claude-3-haiku)</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-        </div>
-        
-        <div class="button-group">
-            <button id="saveSettings">Save Settings</button>
-            <button id="testLLM" class="secondary">Test LLM</button>
-            <button id="refreshCache" class="secondary">Refresh Site Cache</button>
-            <button id="resetDefaults" class="secondary">Reset to Defaults</button>
-        </div>
-        
-        <div id="status" class="status" style="display: none;"></div>
-        
-        <div class="section">
-            <h2>Setup Instructions</h2>
-            <div class="help-text">
-                <h3>Basic Setup:</h3>
-                <ol>
-                    <li>Get an OpenAI API key from <a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com</a></li>
-                    <li>Paste the API key above and click "Save Settings"</li>
-                    <li>Go to Gmail and start composing a reply</li>
-                    <li>Click the "ChatJeePeeTee" button that appears</li>
-                </ol>
-                
-                <h3>Optional Gmail API Setup:</h3>
-                <ol>
-                    <li>Go to <a href="https://console.developers.google.com/" target="_blank">Google Cloud Console</a></li>
-                    <li>Create a new project or select existing one</li>
-                    <li>Enable the Gmail API</li>
-                    <li>Create OAuth 2.0 credentials (Web application)</li>
-                    <li>Add your extension ID to authorized origins</li>
-                    <li>Update the client_id in manifest.json</li>
-                    <li>Enable "Use Gmail API for context" above</li>
-                </ol>
-                
-                <h3>Known Limitations:</h3>
-                <ul>
-                    <li>Button only appears when composing/replying in Gmail</li>
-                    <li>Site content is cached for 4 hours</li>
-                    <li>Drafts are generated based on visible email content</li>
-                    <li>Requires internet connection for LLM calls</li>
-                </ul>
+
+            <!-- Response Settings Card -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6 shadow-sm">
+                <div class="flex items-center mb-4">
+                    <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                    <h2 class="text-xl font-semibold text-gray-900">Response Settings</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label for="tone" class="text-sm font-medium text-gray-700 mb-2 block">Response Tone</label>
+                        <textarea
+                            id="tone"
+                            placeholder="friendly, concise, cheerful + helpful"
+                            class="w-full min-h-[80px] rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
+                        ></textarea>
+                        <p class="text-xs text-gray-500 mt-1">Describe the tone you want for generated replies</p>
+                    </div>
+
+                    <div>
+                        <label for="fallbackMessage" class="text-sm font-medium text-gray-700 mb-2 block">Fallback Message</label>
+                        <textarea
+                            id="fallbackMessage"
+                            placeholder="Thanks for reaching out! The fastest path is our FAQs: https://jeepbeach.com/faq/&#10;If you still need help, just reply here and we'll jump in."
+                            class="w-full min-h-[80px] rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
+                        ></textarea>
+                        <p class="text-xs text-gray-500 mt-1">Message to use when no relevant information is found</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Gmail Integration Card -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6 shadow-sm">
+                <div class="flex items-center mb-4">
+                    <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                    <h2 class="text-xl font-semibold text-gray-900">Gmail Integration</h2>
+                </div>
+
+                <div class="flex items-start space-x-3">
+                    <input
+                        type="checkbox"
+                        id="useGmailApi"
+                        class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5"
+                    >
+                    <div class="grid gap-1.5 leading-none">
+                        <label for="useGmailApi" class="text-sm font-medium text-gray-700 cursor-pointer">Use Gmail API for context (requires OAuth setup)</label>
+                        <p class="text-xs text-gray-500">When enabled, fetches the latest inbound message via Gmail API instead of reading from DOM. More reliable but requires additional setup.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-3 mb-6">
+                <button
+                    id="saveSettings"
+                    class="inline-flex items-center justify-center rounded-md text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 h-10 px-4 py-2 transition-colors"
+                >
+                    Save Settings
+                </button>
+                <button
+                    id="testLLM"
+                    class="inline-flex items-center justify-center rounded-md text-sm font-medium border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 h-10 px-4 py-2 transition-colors"
+                >
+                    Test LLM
+                </button>
+                <button
+                    id="refreshCache"
+                    class="inline-flex items-center justify-center rounded-md text-sm font-medium border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 h-10 px-4 py-2 transition-colors"
+                >
+                    Refresh Content
+                </button>
+                <button
+                    id="resetDefaults"
+                    class="inline-flex items-center justify-center rounded-md text-sm font-medium border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 h-10 px-4 py-2 transition-colors"
+                >
+                    Reset to Defaults
+                </button>
+            </div>
+
+            <!-- Status Message -->
+            <div id="status" class="hidden rounded-md border p-4 mb-6">
+                <div class="flex">
+                    <div class="ml-3">
+                        <p class="text-sm font-medium"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Setup Instructions Card -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                <div class="flex items-center mb-4">
+                    <div class="w-2 h-2 bg-blue-600 rounded-full mr-3"></div>
+                    <h2 class="text-xl font-semibold text-gray-900">Setup Instructions</h2>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-900 mb-2">Basic Setup:</h3>
+                        <ol class="text-sm text-gray-600 space-y-1 list-decimal list-inside">
+                            <li>Get an OpenAI API key from <a href="https://platform.openai.com/api-keys" target="_blank" class="text-blue-600 hover:underline">platform.openai.com</a></li>
+                            <li>Paste the API key above and click "Save Settings"</li>
+                            <li>Go to Gmail and start composing a reply</li>
+                            <li>Click the "ChatJeePT" button that appears</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-900 mb-2">Optional Gmail API Setup:</h3>
+                        <ol class="text-sm text-gray-600 space-y-1 list-decimal list-inside">
+                            <li>Go to <a href="https://console.developers.google.com/" target="_blank" class="text-blue-600 hover:underline">Google Cloud Console</a></li>
+                            <li>Create a new project or select existing one</li>
+                            <li>Enable the Gmail API</li>
+                            <li>Create OAuth 2.0 credentials (Web application)</li>
+                            <li>Add your extension ID to authorized origins</li>
+                            <li>Update the client_id in manifest.json</li>
+                            <li>Enable "Use Gmail API for context" above</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-900 mb-2">Known Limitations:</h3>
+                        <ul class="text-sm text-gray-600 space-y-1 list-disc list-inside">
+                            <li>Button only appears when composing/replying in Gmail</li>
+                            <li>Drafts are generated based on visible email content</li>
+                            <li>Requires internet connection for LLM calls</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    
-    <script src="utils/storage.js"></script>
-    <script src="utils/llm.js"></script>
-    <script src="options.js"></script>
+
+    <script type="module" src="utils/storage.js"></script>
+    <script type="module" src="utils/llm.js"></script>
+    <script type="module" src="options.js"></script>
 </body>
 </html>

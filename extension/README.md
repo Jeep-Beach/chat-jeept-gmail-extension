@@ -1,11 +1,11 @@
-# ChatJeePeeTee Chrome Extension
+# ChatJeePT Chrome Extension
 
 A Chrome extension that helps draft Gmail replies using content from JeepBeach.com. The extension reads the last inbound message, fetches relevant information from JeepBeach.com, and generates a contextual draft reply using an LLM.
 
 ## Features
 
 - **Smart Draft Generation**: Uses LLM to generate contextual replies based on JeepBeach.com content
-- **Two Context Modes**: 
+- **Two Context Modes**:
   - Simple DOM mode (default): Reads visible email content from Gmail's DOM
   - Gmail API mode (optional): Fetches the latest inbound message via Gmail API
 - **Content Caching**: Caches JeepBeach.com content for 4 hours to reduce network calls
@@ -28,7 +28,7 @@ A Chrome extension that helps draft Gmail replies using content from JeepBeach.c
 3. Paste your API key in the "OpenAI API Key" field
 4. Click "Save Settings"
 5. Go to Gmail and start composing a reply
-6. Look for the "ChatJeePeeTee" floating button
+6. Look for the "ChatJeePT" floating button
 
 ### 3. Optional Gmail API Setup
 
@@ -47,7 +47,7 @@ For more reliable context fetching:
 ### Generating Drafts
 
 1. Open Gmail and start composing a reply to an email
-2. The "ChatJeePeeTee" button will appear in the bottom-right corner
+2. The "ChatJeePT" button will appear in the bottom-right corner
 3. Click the button to generate a draft reply
 4. The draft will be inserted into your compose box
 5. Review, edit, and send as normal
@@ -59,7 +59,7 @@ Access settings by clicking the extension icon in Chrome's toolbar:
 - **API Key**: Your OpenAI API key
 - **Response Tone**: Describes the tone for generated replies
 - **Fallback Message**: Message used when no relevant content is found
-- **JeepBeach URLs**: URLs to scrape for content (one per line)
+- **Content Sources**: Static Jeep Beach information used for context
 - **Use Gmail API**: Toggle between DOM and API context modes
 
 ## File Structure
@@ -119,8 +119,7 @@ extension/
    - Test the API key using the "Test LLM" button
 
 3. **No Draft Generated**
-   - Check that JeepBeach URLs are accessible
-   - Use "Refresh Site Cache" to update content
+   - Use "Refresh Content" to update content
    - Verify the email context is readable
 
 4. **Gmail API Issues**
@@ -159,7 +158,7 @@ Enable Chrome's developer tools to see console logs:
 
 - Only works with Gmail (mail.google.com)
 - Requires internet connection for LLM calls
-- Content is cached for 4 hours
+- Uses static content for context
 - Button only appears when composing/replying
 - Limited to the provided JeepBeach.com content
 

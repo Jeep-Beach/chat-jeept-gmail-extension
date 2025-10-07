@@ -1,4 +1,4 @@
-/* ChatJeePeeTee Extension Styles */
+/* ChatJeePT Extension Styles */
 
 /* Floating Draft Button */
 .jeepbeach-draft-button {
@@ -244,22 +244,22 @@
     padding: 6px 12px;
     min-width: 120px;
   }
-  
+
   .jeepbeach-toast {
     top: 10px;
     right: 10px;
     left: 10px;
     max-width: none;
   }
-  
+
   .jeepbeach-options {
     padding: 10px;
   }
-  
+
   .jeepbeach-options .button-group {
     flex-direction: column;
   }
-  
+
   .jeepbeach-options .button-group button {
     width: 100%;
   }
@@ -271,13 +271,13 @@
     background: #1a1a1a;
     color: #e8eaed;
   }
-  
+
   .jeepbeach-options h1,
   .jeepbeach-options h2,
   .jeepbeach-options label {
     color: #e8eaed;
   }
-  
+
   .jeepbeach-options input[type="text"],
   .jeepbeach-options input[type="password"],
   .jeepbeach-options textarea,
@@ -286,7 +286,7 @@
     border-color: #5f6368;
     color: #e8eaed;
   }
-  
+
   .jeepbeach-options .section {
     background: #2d2d2d;
   }

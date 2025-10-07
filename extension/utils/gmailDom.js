@@ -6,7 +6,7 @@ class GmailDOM {
       'div[role="textbox"][g_editable="true"]',
       'div[contenteditable="true"][aria-label*="Message"]'
     ];
-    
+
     this.messageSelectors = [
       'div[role="listitem"] div[dir="ltr"]',
       '.adn .a3s',
@@ -29,9 +29,9 @@ class GmailDOM {
   isVisible(element) {
     if (!element) return false;
     const style = window.getComputedStyle(element);
-    return style.display !== 'none' && 
-           style.visibility !== 'hidden' && 
-           element.offsetWidth > 0 && 
+    return style.display !== 'none' &&
+           style.visibility !== 'hidden' &&
+           element.offsetWidth > 0 &&
            element.offsetHeight > 0;
   }
 
@@ -59,20 +59,20 @@ class GmailDOM {
   // Extract text content from element
   extractTextContent(element) {
     if (!element) return '';
-    
+
     // Clone the element to avoid modifying the original
     const clone = element.cloneNode(true);
-    
+
     // Remove script and style elements
     const scripts = clone.querySelectorAll('script, style');
     scripts.forEach(el => el.remove());
-    
+
     // Get text content and clean it up
     let text = clone.textContent || clone.innerText || '';
-    
+
     // Clean up whitespace
     text = text.replace(/\s+/g, ' ').trim();
-    
+
     return text;
   }
 
@@ -83,13 +83,13 @@ class GmailDOM {
     try {
       // Focus the compose box
       composeBox.focus();
-      
+
       // Try modern approach first
       if (document.execCommand) {
         const success = document.execCommand('insertText', false, text);
         if (success) return true;
       }
-      
+
       // Fallback to Selection API
       const selection = window.getSelection();
       if (selection.rangeCount > 0) {
@@ -101,11 +101,11 @@ class GmailDOM {
         selection.addRange(range);
         return true;
       }
-      
+
       // Last resort: append to end
       composeBox.textContent += text;
       return true;
-      
+
     } catch (error) {
       console.error('Error inserting text:', error);
       return false;
@@ -132,15 +132,15 @@ class GmailDOM {
     toast.id = 'jeepbeach-toast';
     toast.className = `jeepbeach-toast jeepbeach-toast-${type}`;
     toast.textContent = message;
-    
+
     // Add to page
     document.body.appendChild(toast);
-    
+
     // Show with animation
     setTimeout(() => {
       toast.classList.add('jeepbeach-toast-show');
     }, 10);
-    
+
     // Remove after duration
     setTimeout(() => {
       toast.classList.remove('jeepbeach-toast-show');
@@ -157,22 +157,22 @@ class GmailDOM {
     const button = document.createElement('button');
     button.id = 'jeepbeach-draft-button';
     button.className = 'jeepbeach-draft-button';
-    button.textContent = 'ChatJeePeeTee';
+    button.textContent = 'ChatJeePT';
     button.title = 'Generate AI-powered reply for Jeep Beach inquiries';
-    
+
     return button;
   }
 
   // Position floating button
   positionFloatingButton(button) {
     if (!button) return;
-    
+
     // Position in bottom-right with offset from Gmail's send button
     button.style.position = 'fixed';
     button.style.bottom = '20px';
     button.style.right = '20px';
     button.style.zIndex = '9999';
-    
+
     // Check if viewport is small and adjust position
     if (window.innerWidth < 768) {
       button.style.bottom = '10px';
@@ -183,7 +183,7 @@ class GmailDOM {
   // Show/hide button based on compose box presence
   toggleButtonVisibility(button, isVisible) {
     if (!button) return;
-    
+
     if (isVisible) {
       button.style.display = 'block';
       this.positionFloatingButton(button);

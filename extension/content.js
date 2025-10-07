@@ -5,7 +5,7 @@ class JeepBeachContentScript {
     this.floatingButton = null;
     this.observer = null;
     this.isProcessing = false;
-    
+
     this.init();
   }
 
@@ -21,16 +21,16 @@ class JeepBeachContentScript {
   setup() {
     // Initialize GmailDOM utility
     this.gmailDOM = new GmailDOM();
-    
+
     // Create floating button
     this.createFloatingButton();
-    
+
     // Set up mutation observer to watch for compose box changes
     this.setupMutationObserver();
-    
+
     // Initial check for compose box
     this.checkComposeBox();
-    
+
     // Listen for messages from background script
     this.setupMessageListener();
   }
@@ -44,17 +44,17 @@ class JeepBeachContentScript {
 
     // Create new button
     this.floatingButton = this.gmailDOM.createFloatingButton();
-    
+
     // Add click handler
     this.floatingButton.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       this.handleDraftRequest();
     });
-    
+
     // Add to page
     document.body.appendChild(this.floatingButton);
-    
+
     // Initially hide
     this.gmailDOM.toggleButtonVisibility(this.floatingButton, false);
   }
@@ -82,7 +82,7 @@ class JeepBeachContentScript {
   checkComposeBox() {
     const composeBox = this.gmailDOM.getActiveComposeBox();
     const shouldShow = composeBox !== null;
-    
+
     if (this.floatingButton) {
       this.gmailDOM.toggleButtonVisibility(this.floatingButton, shouldShow);
     }
@@ -148,10 +148,10 @@ class JeepBeachContentScript {
         throw new Error('API key not configured. Please set it in the extension options.');
       }
 
-      console.log('Settings loaded:', { 
-        hasApiKey: !!settings.apiKey, 
+      console.log('Settings loaded:', {
+        hasApiKey: !!settings.apiKey,
         tone: settings.tone,
-        urls: settings.jeepBeachUrls 
+        urls: settings.jeepBeachUrls
       });
 
       // Send request to background script
@@ -179,7 +179,7 @@ class JeepBeachContentScript {
   handleDraftResponse(request) {
     this.isProcessing = false;
     this.floatingButton.disabled = false;
-    this.floatingButton.textContent = 'ChatJeePeeTee';
+    this.floatingButton.textContent = 'ChatJeePT';
 
     console.log('Received draft response:', request);
 
@@ -189,7 +189,7 @@ class JeepBeachContentScript {
       if (composeBox) {
         // Clear any existing content first
         composeBox.textContent = '';
-        
+
         const success = this.gmailDOM.insertTextAtCursor(composeBox, request.draft);
         if (success) {
           this.gmailDOM.showToast('Draft inserted successfully!', 'success');
@@ -207,7 +207,7 @@ class JeepBeachContentScript {
   handleDraftError(request) {
     this.isProcessing = false;
     this.floatingButton.disabled = false;
-    this.floatingButton.textContent = 'ChatJeePeeTee';
+    this.floatingButton.textContent = 'ChatJeePT';
 
     const errorMessage = request.error || 'Unknown error occurred';
     this.gmailDOM.showToast(`Error: ${errorMessage}`, 'error');
@@ -232,11 +232,11 @@ class JeepBeachContentScript {
     if (this.observer) {
       this.observer.disconnect();
     }
-    
+
     if (this.floatingButton) {
       this.floatingButton.remove();
     }
-    
+
     clearTimeout(this.checkTimeout);
   }
 }

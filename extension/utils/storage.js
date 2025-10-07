@@ -5,7 +5,6 @@ class StorageManager {
       'apiKey',
       'tone',
       'fallbackMessage',
-      'jeepBeachUrls',
       'useGmailApi'
     ];
   }
@@ -51,13 +50,7 @@ class StorageManager {
     return {
       apiKey: '',
       tone: 'friendly, concise, cheerful + helpful',
-      fallbackMessage: 'Thanks for reaching out! The fastest path is our FAQs: https://jeepbeach.com/faq/\nIf you still need help, just reply here and we\'ll jump in.',
-      jeepBeachUrls: [
-        'https://jeepbeach.com/',
-        'https://jeepbeach.com/faq/',
-        'https://jeepbeach.com/events/',
-        'https://jeepbeach.com/registration/'
-      ].join('\n'),
+      fallbackMessage: 'Thanks for reaching out! We are currently experiencing a high level of inbound questions so we would really appreciate it if you could check out FAQs for answers: https://jeepbeach.com/faq/\nIf you still need help, just reply here and we\'ll jump in!',
       useGmailApi: false
     };
   }
@@ -66,15 +59,15 @@ class StorageManager {
   async initializeSettings() {
     const current = await this.getSyncData();
     const defaults = this.getDefaultSettings();
-    
+
     const needsUpdate = this.syncKeys.some(key => current[key] === undefined);
-    
+
     if (needsUpdate) {
       const updated = { ...defaults, ...current };
       await this.setSyncData(updated);
       return updated;
     }
-    
+
     return current;
   }
 

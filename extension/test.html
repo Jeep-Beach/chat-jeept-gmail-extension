@@ -3,45 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatJeePeeTee - Test Page</title>
+    <title>ChatJeePT - Test Page</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="jeepbeach-options">
-        <h1>ChatJeePeeTee - Test Page</h1>
-        
+        <h1>ChatJeePT - Test Page</h1>
+
         <div class="section">
             <h2>Extension Test Suite</h2>
             <p>This page helps test the extension functionality without needing Gmail.</p>
             <p><strong>Note:</strong> Some tests (Storage, LLM) require Chrome extension APIs and will only work when the extension is loaded in Chrome. Other tests (Site Scraping, Gmail DOM) can work in any browser.</p>
-            
+
             <div class="button-group">
                 <button id="testStorage">Test Storage</button>
                 <button id="testSiteScrape">Test Site Scraping</button>
                 <button id="testLLM">Test LLM Connection</button>
                 <button id="testGmailDOM">Test Gmail DOM Utils</button>
             </div>
-            
+
             <div id="testResults" class="status" style="display: none;"></div>
         </div>
-        
+
         <div class="section">
             <h2>Mock Gmail Compose Box</h2>
             <p>This simulates a Gmail compose box for testing the floating button:</p>
-            
+
             <div id="mockComposeBox" style="border: 1px solid #ccc; padding: 10px; min-height: 100px; background: #f9f9f9;">
                 <div contenteditable="true" role="textbox" aria-label="Message Body" style="min-height: 80px; outline: none;">
                     Click here to start typing...
                 </div>
             </div>
-            
+
             <div id="mockEmailContext" style="margin-top: 10px; padding: 10px; background: #e8f0fe; border-radius: 4px;">
                 <strong>Mock Email Context:</strong><br>
                 "Hi, I'm interested in attending Jeep Beach this year. What are the dates and how do I register?"
             </div>
         </div>
     </div>
-    
+
     <script src="utils/storage.js"></script>
     <script src="utils/gmailDom.js"></script>
     <script src="utils/siteScrape.js"></script>
@@ -55,21 +55,21 @@
                 this.siteScraper = new SiteScraper();
                 this.setupEventListeners();
             }
-            
+
             setupEventListeners() {
                 document.getElementById('testStorage').addEventListener('click', () => this.testStorage());
                 document.getElementById('testSiteScrape').addEventListener('click', () => this.testSiteScrape());
                 document.getElementById('testLLM').addEventListener('click', () => this.testLLM());
                 document.getElementById('testGmailDOM').addEventListener('click', () => this.testGmailDOM());
             }
-            
+
             showResult(message, type = 'info') {
                 const results = document.getElementById('testResults');
                 results.textContent = message;
                 results.className = `status ${type}`;
                 results.style.display = 'block';
             }
-            
+
             async testStorage() {
                 try {
                     // Check if Chrome extension APIs are available
@@ -77,15 +77,15 @@
                         this.showResult('⚠ Storage test skipped - Chrome extension APIs not available. This test only works when loaded as a Chrome extension.', 'warning');
                         return;
                     }
-                    
+
                     // Test default settings
                     const defaults = this.storage.getDefaultSettings();
                     console.log('Default settings:', defaults);
-                    
+
                     // Test setting and getting data
                     await this.storage.setSyncData({ testKey: 'testValue' });
                     const data = await this.storage.getSyncData();
-                    
+
                     if (data.testKey === 'testValue') {
                         this.showResult('✓ Storage test passed!', 'success');
                     } else {
@@ -95,12 +95,12 @@
                     this.showResult(`✗ Storage test failed: ${error.message}`, 'error');
                 }
             }
-            
+
             async testSiteScrape() {
                 try {
                     const testUrl = 'https://jeepbeach.com/';
                     const content = await this.siteScraper.fetchAndParseUrl(testUrl);
-                    
+
                     if (content && content.length > 0) {
                         this.showResult(`✓ Site scraping test passed! Retrieved ${content.length} characters from ${testUrl}`, 'success');
                     } else {
@@ -110,7 +110,7 @@
                     this.showResult(`✗ Site scraping test failed: ${error.message}`, 'error');
                 }
             }
-            
+
             async testLLM() {
                 try {
                     // Check if Chrome extension APIs are available
@@ -118,34 +118,34 @@
                         this.showResult('⚠ LLM test skipped - Chrome extension APIs not available. This test only works when loaded as a Chrome extension.', 'warning');
                         return;
                     }
-                    
+
                     const settings = await this.storage.getSyncData();
-                    
+
                     if (!settings.apiKey) {
                         this.showResult('⚠ LLM test skipped - no API key configured. Set your API key in the options page first.', 'warning');
                         return;
                     }
-                    
+
                     const llmProvider = new LLMProvider(settings.apiKey);
                     const response = await llmProvider.testConnection();
-                    
+
                     this.showResult(`✓ LLM test passed! Response: "${response}"`, 'success');
                 } catch (error) {
                     this.showResult(`✗ LLM test failed: ${error.message}`, 'error');
                 }
             }
-            
+
             testGmailDOM() {
                 try {
                     // Test compose box detection
                     const composeBox = this.gmailDOM.isComposeBoxPresent();
-                    
+
                     if (composeBox) {
                         this.showResult('✓ Gmail DOM test passed! Compose box detected.', 'success');
                     } else {
                         this.showResult('⚠ Gmail DOM test - no compose box detected (this is expected on this test page)', 'warning');
                     }
-                    
+
                     // Test text insertion
                     const mockCompose = document.querySelector('[contenteditable="true"]');
                     if (mockCompose) {
@@ -161,7 +161,7 @@
                 }
             }
         }
-        
+
         // Initialize tester when page loads
         document.addEventListener('DOMContentLoaded', () => {
             new ExtensionTester();
