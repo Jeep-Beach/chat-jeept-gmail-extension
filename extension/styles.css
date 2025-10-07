@@ -1,0 +1,293 @@
+/* ChatJeePeeTee Extension Styles */
+
+/* Floating Draft Button */
+.jeepbeach-draft-button {
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: none;
+  min-width: 140px;
+  text-align: center;
+  user-select: none;
+}
+
+.jeepbeach-draft-button:hover {
+  background: #1557b0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.jeepbeach-draft-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.jeepbeach-draft-button:disabled {
+  background: #9aa0a6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Toast Notifications */
+.jeepbeach-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #333;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.3s ease;
+  max-width: 300px;
+  word-wrap: break-word;
+}
+
+.jeepbeach-toast-show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.jeepbeach-toast-success {
+  background: #34a853;
+}
+
+.jeepbeach-toast-error {
+  background: #ea4335;
+}
+
+.jeepbeach-toast-warning {
+  background: #fbbc04;
+  color: #333;
+}
+
+.jeepbeach-toast-info {
+  background: #1a73e8;
+}
+
+/* Options Page Styles */
+.jeepbeach-options {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Google Sans', Roboto, Arial, sans-serif;
+}
+
+.jeepbeach-options h1 {
+  color: #1a73e8;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.jeepbeach-options h2 {
+  color: #333;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.jeepbeach-options .form-group {
+  margin-bottom: 20px;
+}
+
+.jeepbeach-options label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}
+
+.jeepbeach-options input[type="text"],
+.jeepbeach-options input[type="password"],
+.jeepbeach-options textarea,
+.jeepbeach-options select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.jeepbeach-options input[type="text"]:focus,
+.jeepbeach-options input[type="password"]:focus,
+.jeepbeach-options textarea:focus,
+.jeepbeach-options select:focus {
+  outline: none;
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+.jeepbeach-options textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.jeepbeach-options .checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.jeepbeach-options input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+.jeepbeach-options .button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.jeepbeach-options button {
+  background: #1a73e8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.jeepbeach-options button:hover {
+  background: #1557b0;
+}
+
+.jeepbeach-options button:disabled {
+  background: #9aa0a6;
+  cursor: not-allowed;
+}
+
+.jeepbeach-options button.secondary {
+  background: #5f6368;
+}
+
+.jeepbeach-options button.secondary:hover {
+  background: #4a4a4a;
+}
+
+.jeepbeach-options .status {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.jeepbeach-options .status.success {
+  background: #e8f5e8;
+  color: #137333;
+  border: 1px solid #34a853;
+}
+
+.jeepbeach-options .status.error {
+  background: #fce8e6;
+  color: #d93025;
+  border: 1px solid #ea4335;
+}
+
+.jeepbeach-options .status.info {
+  background: #e8f0fe;
+  color: #1a73e8;
+  border: 1px solid #1a73e8;
+}
+
+.jeepbeach-options .help-text {
+  font-size: 12px;
+  color: #5f6368;
+  margin-top: 5px;
+}
+
+.jeepbeach-options .section {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.jeepbeach-options .url-list {
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .jeepbeach-draft-button {
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    padding: 6px 12px;
+    min-width: 120px;
+  }
+  
+  .jeepbeach-toast {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+  }
+  
+  .jeepbeach-options {
+    padding: 10px;
+  }
+  
+  .jeepbeach-options .button-group {
+    flex-direction: column;
+  }
+  
+  .jeepbeach-options .button-group button {
+    width: 100%;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .jeepbeach-options {
+    background: #1a1a1a;
+    color: #e8eaed;
+  }
+  
+  .jeepbeach-options h1,
+  .jeepbeach-options h2,
+  .jeepbeach-options label {
+    color: #e8eaed;
+  }
+  
+  .jeepbeach-options input[type="text"],
+  .jeepbeach-options input[type="password"],
+  .jeepbeach-options textarea,
+  .jeepbeach-options select {
+    background: #2d2d2d;
+    border-color: #5f6368;
+    color: #e8eaed;
+  }
+  
+  .jeepbeach-options .section {
+    background: #2d2d2d;
+  }
+}
